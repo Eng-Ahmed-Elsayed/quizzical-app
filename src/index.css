@@ -9,16 +9,16 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
-  background-color: darkgray;
+  background-color: #293264;
 }
 
 .container {
-  width: 550px;
-  height: 550px;
+  width: 60vw;
+  height: 100vh;
   background: #F5F7FB;
   display: flex;
   flex-direction: column;
-  margin-inline: auto;
+  margin: 0 auto ;
 }
 
 .top-blob { 
@@ -27,7 +27,7 @@ body {
   background-size: contain;
   background-position: right;
   width: 100%;
-  height: 7rem;
+  height: 30vh;
   
 }
 
@@ -37,12 +37,48 @@ body {
   background-size: contain;
   background-position: bottom left;
   width: 100%;
-  height: 7rem;
+  height: 30vh;
 }
 
 .main-intro {
   display: flex;
   flex-direction: column;
-  margin-top: 1.313rem;
+  margin: 2rem auto;
   text-align: center;
+  height: 40vh;
+}
+
+.intro-head {
+  font-family: 'Karla';
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2.313rem;
+  margin-bottom: 0.5rem;
+}
+
+.intro-text {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.188rem;
+  margin-top: 0.5rem;
+}
+
+.intro-head, .intro-text {
+  color: #293264;
+}
+
+.start-btn {
+  width: 12rem;
+  height: 3.25rem;
+  background: #4D5B9E;
+  border: 0;
+  border-radius: 1rem;
+  margin-inline: auto;
+  margin-top: 0.8rem;
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.188rem;
+  color: #F5F7FB;
 }
