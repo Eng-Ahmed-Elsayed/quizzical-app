@@ -12,9 +12,10 @@ body {
   background-color: #293264;
 }
 
+/* Intro page */
 .container {
-  width: 60vw;
-  height: 100vh;
+  width: 70%;
+  height: 100%;
   background: #F5F7FB;
   display: flex;
   flex-direction: column;
@@ -27,8 +28,12 @@ body {
   background-size: contain;
   background-position: right;
   width: 100%;
-  height: 30vh;
+  height: 25vh;
   
+}
+
+button{
+  cursor: pointer;
 }
 
 .bottom-blob {
@@ -37,7 +42,7 @@ body {
   background-size: contain;
   background-position: bottom left;
   width: 100%;
-  height: 30vh;
+  height: 25vh;
 }
 
 .main-intro {
@@ -45,7 +50,7 @@ body {
   flex-direction: column;
   margin: 2rem auto;
   text-align: center;
-  height: 40vh;
+  height: 35vh;
 }
 
 .intro-head {
@@ -81,4 +86,113 @@ body {
   font-size: 1rem;
   line-height: 1.188rem;
   color: #F5F7FB;
+}
+
+/* Quiz page */
+.quiz {
+  display: flex;
+  flex-direction: column;
+  /* height: 100%; */
+  width: 100%;
+  color: #293264;
+  text-align: start;
+}
+
+.hr {
+  border-bottom: 0.794239px solid #DBDEF0;
+  margin: 2% 30% 3% 0;
+}
+
+.question-container {
+  margin-left: 13%;
+  display: flex;
+  flex-direction: column;
+}
+
+.question {
+  font-family: 'Karla';
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.188rem;
+  margin: 0 0 2% 0;
+}
+
+.answers {
+  display: flex;
+  gap: .75rem;
+}
+
+.answer-btn {
+  border: 0.05rem solid #4D5B9E;
+  border-radius: 0.496rem;
+  text-align: center;
+  /* width: 15%; */
+  /* width: 65.92px; */
+  height: 4vh;
+  padding-inline: 1rem;
+  /* height: 4vh; */
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 0.64rem;
+  line-height: 0.75rem;
+}
+
+.selected {
+  background: #D6DBF5;
+}
+
+.check-answers {
+  width: 7.5rem;
+  height: 2.188rem;
+  margin: 3%  auto ;
+  padding: 0;
+  background: #4D5B9E;
+  border-radius: 10px;
+  border: 0;
+  font-family: 'Inter';
+  font-weight: 600;
+  font-size: 10.24px;
+  line-height: 12px;
+  text-align: center;
+  color: #F5F7FB;
+}
+
+
+
+@media screen and (min-width: 920px) {
+
+  .container {
+    width: 50%;
+  }
+
+}
+
+@media screen and (max-width: 680px) {
+  .container {
+    width: 75%;
+  }
+}
+@media screen and (max-width: 540px) {
+  .container {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 420px) {
+  .question-container {
+    margin-inline: 4%;
+  } 
+  .answers {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  .answer-btn {
+    height: 5vh;
+  }
+  .check-answers {
+    width: 7.5rem;
+    height: 2.188rem;
+    margin: 3%  auto ;
+    padding: 0;
+    
+  }
 }
