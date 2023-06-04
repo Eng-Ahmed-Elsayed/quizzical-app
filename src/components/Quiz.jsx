@@ -6,7 +6,7 @@ export default function Quiz(props) {
   // 1-select && in check mode && correct  => green
   // 2-select && in check mode && wrong => red
   // 3-select and not in check mode => dark blue
-  // 4-Default => gray
+  // 4-Default => white
   function getClassName(ans, props) {
     let className;
     // Selected answer, quizState is check and user hit the correct answerd

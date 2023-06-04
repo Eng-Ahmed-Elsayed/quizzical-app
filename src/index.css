@@ -28,7 +28,7 @@ body {
   background-size: contain;
   background-position: right;
   width: 100%;
-  height: 25vh;
+  height: 20vh;
   
 }
 
@@ -42,7 +42,7 @@ button{
   background-size: contain;
   background-position: bottom left;
   width: 100%;
-  height: 25vh;
+  height: 20vh;
 }
 
 .main-intro {
@@ -50,7 +50,7 @@ button{
   flex-direction: column;
   margin: 2rem auto;
   text-align: center;
-  height: 35vh;
+  height: 50vh;
 }
 
 .intro-head {
@@ -92,19 +92,18 @@ button{
 .quiz {
   display: flex;
   flex-direction: column;
-  /* height: 100%; */
   width: 100%;
   color: #293264;
-  text-align: start;
+  /* text-align: start; */
 }
 
 .hr {
   border-bottom: 0.794239px solid #DBDEF0;
-  margin: 2% 30% 3% 0;
+  margin: 2% 0 3% 0;
 }
 
 .question-container {
-  margin-left: 13%;
+  margin-inline: 7%;
   display: flex;
   flex-direction: column;
 }
@@ -123,15 +122,21 @@ button{
 }
 
 .answer-btn {
+  display: flex;
+  background: #F5F7FB;
   border: 0.05rem solid #4D5B9E;
   border-radius: 0.496rem;
   text-align: center;
+  justify-content: center;
+  align-items: center;
   height: 5vh;
-  padding-inline: 1rem;
+  padding: auto;
   font-family: 'Inter';
   font-weight: 500;
   font-size: 0.64rem;
   line-height: 0.75rem;
+  max-width: 35%;
+  flex: auto;
 }
 
 .selected {
@@ -182,31 +187,20 @@ button{
 }
 
 
-@media screen and (min-width: 920px) {
-
-  .container {
-    width: 70%;
-  }
-
-}
-
-@media screen and (max-width: 680px) {
-  .container {
-    width: 75%;
-  }
-  
-  .answer-btn {
-    height: auto;
-  }
-}
-
-@media screen and (max-width: 540px) {
+@media screen and (max-width: 740px) {
   .container {
     width: 100%;
   }
-  
+
+  .answer-btn {
+    max-width: none;
+  }
 }
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 520px) {
+  .container {
+    width: 100%;
+  }
+
   .question-container {
     margin-inline: 4%;
   } 
@@ -216,15 +210,14 @@ button{
     grid-template-columns: auto auto;
   }
 
-  .answer-btn {
-    height: auto;
+  .question {
+    font-size: 1.3rem;
+    line-height: normal;
   }
 
-  /* .check-answers {
-    width: 7.5rem;
-    height: 2.188rem;
-    margin: 3%  auto ;
-    padding: 0;
-    
-  } */
+  .answer-btn {
+    font-size: 0.8rem;
+    max-width: none;
+
+  }
 }
