@@ -1,5 +1,12 @@
 /* eslint-disable react/prop-types */
 export default function Quiz(props) {
+  // change the btn class depends on the quizState and
+  // if the btn is selected or not also if the 
+  // answer is correct or not
+  // 1-select && in check mode && correct  => green
+  // 2-select && in check mode && wrong => red
+  // 3-select and not in check mode => dark blue
+  // 4-Default => gray
   function getClassName(ans, props) {
     let className;
     // Selected answer, quizState is check and user hit the correct answerd

@@ -7,6 +7,9 @@ import Quiz from "./components/Quiz";
 
 function App() {
   // Our states 1-intro 2-start(quiz) 3-check(quiz) (Play again => Intro)
+  // Intro display the intro page
+  // start get the data from the api and start the quiz
+  // check correct the exam then display the play again btn and the score
   const [quizState, setQuizState] = useState("intro");
   const [quizData, setQuizData] = useState([]);
   const [score, setScore] = useState(0);
@@ -45,6 +48,7 @@ function App() {
     );
   }
 
+  // Set The quizState intro => start
   function handelStartQuiz() {
     setQuizState("start");
   }
@@ -66,15 +70,21 @@ function App() {
         return objQ;
       })
     );
+    // Set The quizState start => check  
     setQuizState("check");
   }
 
   function handelPlayAgain() {
+    // Set The quizState check => intro 
     setQuizState("intro");
     setScore(0);
     setQuizData([]);
   }
 
+  // Get new data from the api. It will work when you click
+  // the start btn (it changes quizState intro => start)
+  // after this it will modify the json data (add new fields,
+  // decode the data, etc) so we can use it in our quiz
   useEffect(() => {
     quizState === "start" &&
       fetch("https://opentdb.com/api.php?amount=5")
