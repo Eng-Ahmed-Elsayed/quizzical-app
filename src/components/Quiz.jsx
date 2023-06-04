@@ -2,19 +2,27 @@
 export default function Quiz(props) {
   function getClassName(ans, props) {
     let className;
-    // Selected answer, checkAnswers state is true and user hit the correct answerd
-    if (ans.selected && props.checkAnswers && props.userAnswerdCorrect) {
+    // Selected answer, quizState is check and user hit the correct answerd
+    if (
+      ans.selected &&
+      props.quizState === "check" &&
+      props.userAnswerdCorrect
+    ) {
       className = "answer-btn correct";
     }
-    // Selected answer, checkAnswers state is true and user hit the wrong answerd
-    else if (ans.selected && props.checkAnswers && !props.userAnswerdCorrect) {
+    // Selected answer, quizState is check and user hit the wrong answerd
+    else if (
+      ans.selected &&
+      props.quizState === "check" &&
+      !props.userAnswerdCorrect
+    ) {
       className = "answer-btn wrong";
     }
-    // Selected answer, checkAnswers state is false.
-    else if (ans.selected && !props.checkAnswers) {
+    // Selected answer, quizState is start
+    else if (ans.selected && props.quizState === "start") {
       className = "answer-btn selected";
     }
-    // Normal style before the user click any btn
+    // Default class before the user click any btn
     else {
       className = "answer-btn";
     }
@@ -26,7 +34,10 @@ export default function Quiz(props) {
         className={getClassName(ans, props)}
         key={ans.ansId}
         onClick={() =>
-          !props.checkAnswers && props.toggleAnswer(props.qId, ans.ansId)
+          // Handel click on answers bts and disable it if
+          // quizState is not start
+          props.quizState === "start" &&
+          props.toggleAnswer(props.qId, ans.ansId)
         }
       >
         {ans.answer}

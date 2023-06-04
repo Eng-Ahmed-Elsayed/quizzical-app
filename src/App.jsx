@@ -6,10 +6,9 @@ import Intro from "./components/Intro";
 import Quiz from "./components/Quiz";
 
 function App() {
-  const [startQuiz, setStartQuiz] = useState(false);
-  const [checkAnswers, setCheckAnswers] = useState(false);
+  // Our states 1-intro 2-start(quiz) 3-check(quiz) (Play again => Intro)
+  const [quizState, setQuizState] = useState("intro");
   const [quizData, setQuizData] = useState([]);
-  const [getData, setGetData] = useState(false)
   const [score, setScore] = useState(0);
   const quiz = quizData.map((q) => {
     return (
@@ -21,22 +20,10 @@ function App() {
         question={decode(q.question)}
         toggleAnswer={toggleAnswer}
         userAnswerdCorrect={q.userAnswerdCorrect}
-        checkAnswers={checkAnswers}
+        quizState={quizState}
       />
     );
   });
-
-  function handelStartQuiz() {
-    setStartQuiz(true);
-  }
-
-  function handelPlayAgain() {
-    setStartQuiz(false);
-    setCheckAnswers(false)
-    setGetData(prev => !prev)
-    setScore(0)
-    setQuizData([])
-  }
 
   // Handel answers bts. When u click one answer
   // reverse selected state and set other ansers to false
@@ -58,6 +45,10 @@ function App() {
     );
   }
 
+  function handelStartQuiz() {
+    setQuizState("start");
+  }
+
   // Handel what should happen when u click check answers btn
   // Check the answer if it is correct make it green and give +1,
   // else make it red and +0.
@@ -69,60 +60,77 @@ function App() {
           (ans) => ans.selected === true
         )[0];
         if (objQ.correct_answer === selectedAnswer?.answer) {
-          setScore(prev => prev + 0.5);
+          setScore((prev) => prev + 0.5);
           return { ...objQ, userAnswerdCorrect: true };
         }
         return objQ;
       })
     );
-    setCheckAnswers(true);
+    setQuizState("check");
+  }
+
+  function handelPlayAgain() {
+    setQuizState("intro");
+    setScore(0);
+    setQuizData([]);
   }
 
   useEffect(() => {
-    startQuiz && fetch("https://opentdb.com/api.php?amount=5")
-      .then((response) => response.json())
-      .then((json) =>
-        setQuizData(
-          json.results.map((data) => ({
-            ...data,
-            qId: nanoid(),
-            userAnswerdCorrect: false,
-            // Adding new list of objs to carry all of the answers
-            // with new fields and shuffle it.
-            // Also decode the answer just in case
-            allAnswers: [...data.incorrect_answers, data.correct_answer]
-              .sort((a, b) => 0.5 - Math.random())
-              .map((ans) => ({
-                answer: decode(ans),
-                // Add id for every answer
-                ansId: nanoid(),
-                selected: false,
-              })),
-          }))
+    quizState === "start" &&
+      fetch("https://opentdb.com/api.php?amount=5")
+        .then((response) => response.json())
+        .then((json) =>
+          setQuizData(
+            json.results.map((data) => ({
+              ...data,
+              qId: nanoid(),
+              userAnswerdCorrect: false,
+              // Adding new list of objs to carry all of the answers
+              // with new fields and shuffle it.
+              // Also decode the answer just in case
+              allAnswers: [...data.incorrect_answers, data.correct_answer]
+                // eslint-disable-next-line no-unused-vars
+                .sort((a, b) => 0.5 - Math.random())
+                .map((ans) => ({
+                  answer: decode(ans),
+                  // Add id for every answer
+                  ansId: nanoid(),
+                  selected: false,
+                })),
+            }))
+          )
         )
-      )
-      .catch((error) => console.error(error));
-      startQuiz && console.log("Get Data")
-  }, [getData, startQuiz]);
+        .catch((error) => console.error(error));
+  }, [quizState]);
 
   return (
     <div className="container">
+      {/* Top blob */}
       <div className="top-blob"></div>
-        {!startQuiz && <Intro startQuiz={handelStartQuiz} />}
-        {startQuiz && quiz}
-        {startQuiz && !checkAnswers && (
-          <button className="check-answers" onClick={handelCheckAnswers}>
-            Check Answers
+
+      {/* Intro Page */}
+      {quizState === "intro" && <Intro startQuiz={handelStartQuiz} />}
+
+      {/* Quiz Page with Check Answers btn */}
+      {quizState === "start" && quiz}
+      {quizState === "start" && (
+        <button className="check-answers" onClick={handelCheckAnswers}>
+          Check Answers
+        </button>
+      )}
+
+      {/* Quiz Page with Check Play again btn */}
+      {quizState === "check" && quiz}
+      {quizState === "check" && (
+        <div className="play-again-container">
+          <h4 className="userScore">You scored {score}/5 correct answers</h4>
+          <button className="play-again" onClick={handelPlayAgain}>
+            Play again
           </button>
-        )}
-        {startQuiz && checkAnswers &&(
-          <div className="play-again-container">
-            <h4 className="userScore">You scored {score}/5 correct answers</h4>
-            <button className="play-again" onClick={handelPlayAgain}>
-              Play again
-            </button>
-          </div>
-        )}
+        </div>
+      )}
+
+      {/* Bottom blob */}
       <div className="bottom-blob"></div>
     </div>
   );
