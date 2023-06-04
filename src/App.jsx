@@ -70,12 +70,12 @@ function App() {
         return objQ;
       })
     );
-    // Set The quizState start => check  
+    // Set The quizState start => check
     setQuizState("check");
   }
 
   function handelPlayAgain() {
-    // Set The quizState check => intro 
+    // Set The quizState check => intro
     setQuizState("intro");
     setScore(0);
     setQuizData([]);
@@ -121,17 +121,21 @@ function App() {
       {/* Intro Page */}
       {quizState === "intro" && <Intro startQuiz={handelStartQuiz} />}
 
+      {/* The loader */}
+      {quizData.length === 0 && quizState === "start" && (
+        <div className="loader"><div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+      )}
+
       {/* Quiz Page with Check Answers btn */}
-      {quizState === "start" && quiz}
-      {quizState === "start" && (
+      {quizState !== "intro" && quiz}
+      {quizData.length > 0 && quizState === "start" && (
         <button className="check-answers" onClick={handelCheckAnswers}>
           Check Answers
         </button>
       )}
 
       {/* Quiz Page with Check Play again btn */}
-      {quizState === "check" && quiz}
-      {quizState === "check" && (
+      {quizData.length > 0 && quizState === "check" && (
         <div className="play-again-container">
           <h4 className="userScore">You scored {score}/5 correct answers</h4>
           <button className="play-again" onClick={handelPlayAgain}>
